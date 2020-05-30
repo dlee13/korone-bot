@@ -1,0 +1,28 @@
+[package]
+name = "korone-bot"
+version = "0.1.0"
+authors = ["Derek Lee <derek.evilcornrules@gmail.com>"]
+edition = "2018"
+publish = false
+repository = "https://github.com/dlee13/korone-bot"
+readme = "README.md"
+license = "ISC"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+futures-util = "0.3"
+kankyo = "0.3"
+reqwest = { default-features = false, features = ["default-tls", "json"], version = "0.10" }
+serde = "1.0"
+sled = "0.31.0"
+time = "0.2"
+tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "time"] }
+twilight = "*"
+
+[patch.crates-io]
+#sled = { git = "https://github.com/spacejam/sled.git" }
+twilight = { path = "../twilight/twilight", features = ["command-parser", "gateway", "http", "model"] }
+
+[profile.release]
+codegen-units = 1

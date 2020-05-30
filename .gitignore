@@ -1,0 +1,6 @@
+/target
+/untracked
+**/*.rs.bk
+
+**/*.db
+**/*.env
