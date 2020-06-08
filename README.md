@@ -2,7 +2,7 @@
 
 Korone is a general purpose bot with reminders as the main utility.
 
-There is no functionality related to Vtubers (for now, at least). It's just named after someone I like.
+There is no functionality related to VTubers (for now, at least). It's just named after someone I like.
 
 ## Getting Started
 
@@ -29,10 +29,8 @@ Rust 1.40+ with Cargo
 
 ## Built With
 
-<!--
 * [sled](https://github.com/spacejam/sled) - A modern embedded database
-* [twilight](https://github.com/twilight-rs/twilight) - The Rust library for the Discord API
--->
+* [twilight](https://github.com/twilight-rs/twilight) - A Rust library for the Discord API
 
 ## License
 

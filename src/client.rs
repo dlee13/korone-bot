@@ -46,11 +46,10 @@ pub async fn start() -> Result<()> {
     while let Some(event) = events.next().await {
         match handle_event(event, &ctx).await {
             Ok(_) => (),
-            Err(why) if why.to_string() == "quit" => break,
             Err(why) => {
                 println!("Error while handling event: {}", why);
-            }
-        }
+            },
+        };
     }
 
     Ok(())
@@ -58,15 +57,9 @@ pub async fn start() -> Result<()> {
 
 async fn handle_event(event: Event, ctx: &Context<'_>) -> Result<()> {
     match event {
-        Event::MessageCreate(msg) => {
-            if msg.0.author.bot {
-                // Don't react if message was sent by a bot.
-                return Ok(());
-            }
-
-            handle_command(msg.0, &ctx).await?;
-            Ok(())
-        }
+        Event::MessageCreate(msg) if !msg.0.author.bot => {
+            handle_command(msg.0, &ctx).await
+        },
         _ => Ok(()),
     }
 }
@@ -80,14 +73,13 @@ async fn handle_command(msg: Message, ctx: &Context<'_>) -> Result<()> {
                     .content("I'm a bot")?
                     .await?;
                 Ok(())
-            }
+            },
             Command { name: "quit", .. } => {
                 if msg.author.id == *ctx.owner {
-                    Err("quit".into())
-                } else {
-                    Ok(())
+                    ctx.shard.shutdown().await;
                 }
-            }
+                Ok(())
+            },
             _ => Ok(()),
         }
     } else {
